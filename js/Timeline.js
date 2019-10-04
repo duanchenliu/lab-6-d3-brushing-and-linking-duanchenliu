@@ -16,10 +16,7 @@ let x = d3.scaleTime(),
   // Activity III  create a new dispatch with a custom event 
   let listeners = d3.dispatch('brushed'); // 'brushed' is the name of our custom event
 
-  chart.on = function() {// allow users to register for your custom events 
-    var value = listeners.on.apply(listeners, arguments);
-    return value === listeners ? chart : value;
-  };
+  
 
 
 function chart(selection){
@@ -81,6 +78,10 @@ function chart(selection){
 
 // Activity III  define 'on' function to enable external modules to register callbacks for the custom event
   // allow users to register for your custom events 
+  chart.on = function() {// allow users to register for your custom events 
+    var value = listeners.on.apply(listeners, arguments);
+    return value === listeners ? chart : value;
+  };
 
 function handleBrush(){
   // Activity III  - call registered callbacks and send the brush filter information

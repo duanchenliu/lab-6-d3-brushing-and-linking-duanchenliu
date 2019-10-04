@@ -9,9 +9,11 @@ let parseDate = d3.timeParse("%Y");
 
 // Variables for the visualization instances
 // Activity I - Create a stacked area chart
-let stackChart = StackedAreaChart();
+let stackChart = StackedAreaChart()
+	.on('selectCategory', onSelectCategory);
 // Activity V - register for the category selection event
 
+ 	
 // Activity III - Create a timeline chart
 let timeline = Timeline()
 	.on('brushed', onBrushRange); // register your custom callback, brushed
