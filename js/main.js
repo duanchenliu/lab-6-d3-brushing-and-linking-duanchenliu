@@ -9,9 +9,13 @@ let parseDate = d3.timeParse("%Y");
 
 // Variables for the visualization instances
 // Activity I - Create a stacked area chart
+let stackChart = StackedAreaChart();
 // Activity V - register for the category selection event
 
 // Activity III - Create a timeline chart
+let timeline = Timeline()
+	.on('brushed', onBrushRange); // register your custom callback, brushed
+
 
 // Will be used to the save filter variables
 let filterCategory, filterRange;
@@ -38,8 +42,14 @@ Promise.all([ // load multiple files
 	categoryData = data[1];
 
 	// Activity I - Call the stacked area chart
+	d3.select('#stacked-area-chart') // a container element
+		.datum(categoryData) // specify data
+		.call(stackChart);
 	
 	// Activity III - Call the timeline chart
+	d3.select('#timeline')
+		.datum(yearData) // per year data
+		.call(timeline);
 
 })
 // callback for selecting a category in the stack area chart
@@ -48,7 +58,7 @@ function onSelectCategory(d,i){
 	let filtered = filterCategoryData(filterCategory, filterRange);
 	d3.select('#stacked-area-chart')
 		.datum(filtered)
-		.call(areachart);
+		.call(stackChart);
 }
 
 // callback for brushing on the timeline
@@ -57,7 +67,7 @@ function onBrushRange(dateRange) {
 	let filtered = filterCategoryData(filterCategory, filterRange);
 	d3.select('#stacked-area-chart')
 		.datum(filtered)
-		.call(areachart);
+		.call(stackChart);
 }
 
 // check if a year is within the year range
